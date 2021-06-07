@@ -6,6 +6,13 @@ const routes = [
     name: "Wall",
     component: () =>
       import(/* webpackChunkName: "wall" */ "../views/Wall.vue"),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
   },
 ];
 
