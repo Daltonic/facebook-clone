@@ -107,6 +107,7 @@
     </div>
     <!-- Right -->
     <div class="flex items-center sm:space-x-2 justify-end">
+      <ViewGridIcon class="icon"/>
       <p class="whitespace-nowrap font-semibold pr-3">Darlington Gospel</p>
       <ViewGridIcon class="icon"/>
       <ChatIcon class="icon"/>

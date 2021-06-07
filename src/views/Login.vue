@@ -16,7 +16,7 @@
         Sign In With Facebook
       </button>
 
-      <button
+      <!-- <button
         class="
           my-5
           p-3
@@ -28,18 +28,35 @@
         @click="signInWithFacebook"
       >
         Sign In With Google
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
 
 <script>
+// import { auth, provider } from "../firebase";
 export default {
   name: "login",
+  data() {
+    return {
+      loading: false,
+    };
+  },
   methods: {
     signInWithFacebook() {
       console.log("Sign in with facebook");
     },
+
+    // signIn() {
+    //   this.loading = true;
+    //   auth
+    //     .signInWithPopup(provider)
+    //     .then((res) => loginCometChat(res.user))
+    //     .catch((error) => {
+    //       this.loading = true;
+    //       alert(error.message);
+    //     });
+    // },
   },
 };
 </script>
@@ -55,7 +72,7 @@ export default {
   border: 1px solid #45619d;
   background-color: #45619d;
   transition: all 0.3s ease-in-out;
-  margin: 20px 5px
+  margin: 20px 5px;
 }
 
 .login > div > button:first-child:hover {
@@ -63,7 +80,7 @@ export default {
   color: #45619d;
 }
 
-.login > div > button:last-child {
+/* .login > div > button:last-child {
   border: 1px solid #0a8d48;
   background-color: #0a8d48;
   transition: all 0.3s ease-in-out;
@@ -73,5 +90,5 @@ export default {
 .login > div > button:last-child:hover {
   background-color: transparent;
   color: #0a8d48;
-}
+} */
 </style>
