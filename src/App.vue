@@ -1,11 +1,20 @@
 <template>
   <div id="app">
-    <router-view />
+    <MainHeader />
+    <main></main>
   </div>
 </template>
 
-<style>
-* {
-  margin: 0;
-}
+<script>
+import MainHeader from "./components/MainHeader.vue";
+// import { ref } from 'vue'
+export default {
+  name: "app",
+  components: {
+    MainHeader,
+  },
+};
+</script>
+
+<style scoped>
 </style>
