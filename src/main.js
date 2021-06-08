@@ -3,21 +3,20 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './index.css'
-import { auth } from './firebase'
 import { CometChat } from '@cometchat-pro/chat'
 import { cometChat } from './app.config'
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  const user = JSON.parse(localStorage.getItem('user'))
 
-  if (requiresAuth && !auth.currentUser) {
+  if (requiresAuth && !user) {
     console.log('You are not authorized to access this area.')
     next('login')
   } else {
     next()
   }
 })
-
 
 const appID = cometChat.APP_ID
 const region = cometChat.APP_REGION

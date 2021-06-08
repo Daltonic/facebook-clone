@@ -109,7 +109,7 @@
     <div class="flex items-center sm:space-x-2 justify-end">
       <!-- <LogoutIcon class="icon"/> -->
       <img
-        src="../assets/logo.png"
+        :src="user?.photoURL"
         alt="avatar"
         width="30"
         height="30"
@@ -118,7 +118,9 @@
         class="icon"
         @click="logOut"
       />
-      <p class="whitespace-nowrap font-semibold pr-3">Darlington Gospel</p>
+      <p class="whitespace-nowrap font-semibold pr-3 capitalize">
+        {{ user?.displayName }}
+      </p>
       <ViewGridIcon class="icon" />
       <ChatIcon class="icon" />
       <BellIcon class="icon" />
@@ -145,11 +147,17 @@ import {
 } from "@heroicons/vue/outline";
 import { auth } from "../firebase";
 import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
 
 export default {
   name: "main-header",
   setup() {
     const router = useRouter();
+    let user = ref(null);
+
+    onMounted(() => {
+      user.value = JSON.parse(localStorage.getItem("user"));
+    });
 
     const logOut = () => {
       auth
@@ -158,9 +166,9 @@ export default {
           router.push("/login");
         })
         .catch((error) => console.log(error.message));
-    }
+    };
 
-    return { logOut };
+    return { logOut, user };
   },
   components: {
     BellIcon,

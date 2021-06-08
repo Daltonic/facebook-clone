@@ -37,47 +37,48 @@
 import { auth, provider } from "../firebase";
 import { CometChat } from "@cometchat-pro/chat";
 import { cometChat } from "../app.config";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 export default {
   name: "login",
-  data() {
-    return {
-      loading: false,
-    };
-  },
-  methods: {
-    signIn() {
-      this.loading = true;
+  setup() {
+    let loading = ref(false);
+    const router = useRouter();
+
+    const signIn = () => {
+      loading.value = true;
       auth
         .signInWithPopup(provider)
-        .then((res) => this.loginCometChat(res.user))
+        .then((res) => loginCometChat(res.user))
         .catch((error) => {
-          this.loading = false;
+          loading.value = false;
           console.log(error);
           alert(error.message);
         });
-    },
+    };
 
-    loginCometChat(data) {
+    const loginCometChat = (data) => {
       const authKey = cometChat.AUTH_KEY;
 
       CometChat.login(data.uid, authKey)
         .then((u) => {
           console.log(u);
-          this.loading = false;
-          this.$router.push("/");
+          localStorage.setItem('user', JSON.stringify(data))
+          loading.value = false;
+          router.push("/");
         })
         .catch((error) => {
           if (error.code === "ERR_UID_NOT_FOUND") {
-            this.signUpWithCometChat(data);
+            signUpWithCometChat(data);
           } else {
             console.log(error);
-            this.loading = false;
+            loading.value = false;
             alert(error.message);
           }
         });
-    },
+    };
 
-    signUpWithCometChat(data) {
+    const signUpWithCometChat = (data) => {
       const authKey = cometChat.AUTH_KEY;
       const user = new CometChat.User(data.uid);
 
@@ -86,16 +87,18 @@ export default {
 
       CometChat.createUser(user, authKey)
         .then(() => {
-          this.loading = false;
+          loading.value = false;
           alert("You are now signed up, click the button again to login");
         })
         .catch((error) => {
           console.log(error);
-          this.loading = false;
+          loading.value = false;
           alert(error.message);
         });
-    },
-  },
+    };
+
+    return { loading, signIn };
+  }
 };
 </script>
 
