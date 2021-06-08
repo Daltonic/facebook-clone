@@ -66,7 +66,7 @@
             class="h-10 w-10 rounded-full object-cover icon"
             loading="lazy"
           />
-          <form class="flex flex-1">
+          <form @submit.prevent="onSubmit" class="flex flex-1">
             <input
               type="text"
               :placeholder="`what's on your mind, ${user?.displayName}?`"
@@ -81,6 +81,20 @@
             />
           </form>
         </div>
+        <div class="flex justify-evenly p-3 border-t">
+          <div class="inputIcon">
+            <VideoCameraIcon class="h-7 text-red-500" />
+            <p class="text-xs sm:text-sm xl:text-base">Live Video</p>
+          </div>
+          <div class="inputIcon">
+            <CameraIcon class="h-7 text-green-400" />
+            <p class="text-xs sm:text-sm xl:text-base">Photo/Video</p>
+          </div>
+          <div class="inputIcon">
+            <EmojiHappyIcon class="h-7 text-yellow-300" />
+            <p class="text-xs sm:text-sm xl:text-base">Feeling/Activity</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -88,6 +102,8 @@
 
 <script>
 import { ref, onMounted } from "vue";
+import { EmojiHappyIcon } from "@heroicons/vue/outline";
+import { CameraIcon, VideoCameraIcon } from "@heroicons/vue/solid";
 export default {
   setup() {
     const user = ref(null);
@@ -122,8 +138,17 @@ export default {
     onMounted(() => {
       user.value = JSON.parse(localStorage.getItem("user"));
     });
-    return { stories, user };
+
+    const onSubmit = () => {
+      console.log("submitted");
+    };
+    return { stories, user, onSubmit };
   },
+  components: {
+      EmojiHappyIcon,
+      CameraIcon,
+      VideoCameraIcon
+  }
 };
 </script>
 
