@@ -18,6 +18,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+
 const appID = cometChat.APP_ID
 const region = cometChat.APP_REGION
 const appSetting = new CometChat.AppSettingsBuilder()

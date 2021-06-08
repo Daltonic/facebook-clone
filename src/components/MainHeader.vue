@@ -107,12 +107,22 @@
     </div>
     <!-- Right -->
     <div class="flex items-center sm:space-x-2 justify-end">
-      <ViewGridIcon class="icon"/>
+      <!-- <LogoutIcon class="icon"/> -->
+      <img
+        src="../assets/logo.png"
+        alt="avatar"
+        width="30"
+        height="30"
+        loading="lazy"
+        title="Username"
+        class="icon"
+        @click="logOut"
+      />
       <p class="whitespace-nowrap font-semibold pr-3">Darlington Gospel</p>
-      <ViewGridIcon class="icon"/>
-      <ChatIcon class="icon"/>
-      <BellIcon class="icon"/>
-      <ChevronDownIcon class="icon"/>
+      <ViewGridIcon class="icon" />
+      <ChatIcon class="icon" />
+      <BellIcon class="icon" />
+      <ChevronDownIcon class="icon" />
     </div>
   </div>
 </template>
@@ -125,6 +135,7 @@ import {
   HomeIcon,
   UserGroupIcon,
   ViewGridIcon,
+  // LogoutIcon,
 } from "@heroicons/vue/solid";
 import {
   FlagIcon,
@@ -132,10 +143,25 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/vue/outline";
-// import HeaderIcon from "./HeaderIcon.vue";
+import { auth } from "../firebase";
+import { useRouter } from "vue-router";
 
 export default {
   name: "main-header",
+  setup() {
+    const router = useRouter();
+
+    const logOut = () => {
+      auth
+        .signOut()
+        .then(() => {
+          router.push("/login");
+        })
+        .catch((error) => console.log(error.message));
+    }
+
+    return { logOut };
+  },
   components: {
     BellIcon,
     ChatIcon,
@@ -147,7 +173,7 @@ export default {
     PlayIcon,
     SearchIcon,
     ShoppingCartIcon,
-    // HeaderIcon,
+    // LogoutIcon,
   },
 };
 </script>

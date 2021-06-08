@@ -1,24 +1,24 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
+import Wall from '@/views/Wall.vue'
+import Login from '@/views/Login.vue'
 
 const routes = [
   {
-    path: "/",
-    name: "Wall",
-    component: () =>
-      import(/* webpackChunkName: "wall" */ "../views/Wall.vue"),
-    meta: { requiresAuth: true }
+    path: '/',
+    name: 'Wall',
+    component: Wall,
+    meta: { requiresAuth: true },
   },
   {
-    path: "/login",
-    name: "Login",
-    component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
-];
+]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
-});
+})
 
-export default router;
+export default router
