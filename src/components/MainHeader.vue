@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky top-8 z-58 bg-white flex items-center p-2 lg:px-5 shadow-md"
+    class="sticky z-58 bg-white flex items-center p-2 lg:px-5 shadow-md"
   >
     <!-- Left -->
     <div class="flex items-center">
@@ -137,7 +137,6 @@ import {
   HomeIcon,
   UserGroupIcon,
   ViewGridIcon,
-  // LogoutIcon,
 } from "@heroicons/vue/solid";
 import {
   FlagIcon,
@@ -181,7 +180,6 @@ export default {
     PlayIcon,
     SearchIcon,
     ShoppingCartIcon,
-    // LogoutIcon,
   },
 };
 </script>
