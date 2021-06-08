@@ -116,7 +116,6 @@
         loading="lazy"
         title="Username"
         class="icon"
-        @click="logOut"
       />
       <p class="whitespace-nowrap font-semibold pr-3 capitalize">
         {{ user?.displayName }}
@@ -144,30 +143,18 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/vue/outline";
-import { auth } from "../firebase";
-import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 
 export default {
   name: "main-header",
   setup() {
-    const router = useRouter();
     let user = ref(null);
 
     onMounted(() => {
       user.value = JSON.parse(localStorage.getItem("user"));
     });
 
-    const logOut = () => {
-      auth
-        .signOut()
-        .then(() => {
-          router.push("/login");
-        })
-        .catch((error) => console.log(error.message));
-    };
-
-    return { logOut, user };
+    return { user };
   },
   components: {
     BellIcon,

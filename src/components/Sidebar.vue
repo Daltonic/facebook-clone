@@ -22,7 +22,7 @@
     <SidebarRow title="See More">
       <ChevronDownIcon class="h-8 w-8 text-blue-500" />
     </SidebarRow>
-    <SidebarRow title="Logout">
+    <SidebarRow title="Logout" @click="logOut">
       <LogoutIcon class="h-8 w-8 text-blue-500" />
     </SidebarRow>
   </div>
@@ -43,15 +43,29 @@ import {
   DesktopComputerIcon,
   UsersIcon,
 } from "@heroicons/vue/solid";
+import { auth } from "../firebase";
+import { useRouter } from "vue-router";
 export default {
   name: "sidebar",
   setup() {
     let user = ref(null);
+    const router = useRouter();
 
     onMounted(() => {
       user.value = JSON.parse(localStorage.getItem("user"));
     });
-    return { user };
+
+    const logOut = () => {
+      auth
+        .signOut()
+        .then(() => {
+          localStorage.clear()
+          router.push("/login");
+        })
+        .catch((error) => console.log(error.message));
+    };
+
+    return { user, logOut };
   },
   components: {
     ChevronDownIcon,
