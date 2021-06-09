@@ -50,14 +50,14 @@
       <!-- Input Box -->
       <InputBox />
       <!-- Posts -->
-      <Post />
+      <Posts />
     </div>
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import Post from "./Post.vue";
+import Posts from "./Posts.vue";
 import InputBox from "./InputBox.vue";
 export default {
   setup() {
@@ -96,7 +96,7 @@ export default {
     return { stories };
   },
   components: {
-    Post,
+    Posts,
     InputBox,
   },
 };
