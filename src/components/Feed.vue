@@ -78,6 +78,7 @@
                 px-5
                 focus:outline-none
               "
+              v-model.trim="message"
             />
           </form>
         </div>
@@ -104,9 +105,11 @@
 import { ref, onMounted } from "vue";
 import { EmojiHappyIcon } from "@heroicons/vue/outline";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/vue/solid";
+import db, { timestamp } from "../firebase";
 export default {
   setup() {
     const user = ref(null);
+    const message = ref("");
     const stories = ref([
       {
         name: "Sonny Sangha",
@@ -140,15 +143,28 @@ export default {
     });
 
     const onSubmit = () => {
-      console.log("submitted");
+      if (message.value === "") return;
+      const data = {
+        message: message.value,
+        name: user.value.displayName,
+        email: user.value.email,
+        image: user.value.photoURL,
+        uid: user.value.uid,
+        timestamp: timestamp,
+      };
+
+      db.collection("posts")
+        .add(data)
+        .then(() => (message.value = ""))
+        .catch((error) => console.log(error));
     };
-    return { stories, user, onSubmit };
+    return { stories, user, message, onSubmit };
   },
   components: {
-      EmojiHappyIcon,
-      CameraIcon,
-      VideoCameraIcon
-  }
+    EmojiHappyIcon,
+    CameraIcon,
+    VideoCameraIcon,
+  },
 };
 </script>
 
