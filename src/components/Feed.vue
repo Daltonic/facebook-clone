@@ -87,13 +87,37 @@
             <VideoCameraIcon class="h-7 text-red-500" />
             <p class="text-xs sm:text-sm xl:text-base">Live Video</p>
           </div>
-          <div class="inputIcon">
+          <div @click="$refs.filepickerRef.click()" class="inputIcon">
             <CameraIcon class="h-7 text-green-400" />
             <p class="text-xs sm:text-sm xl:text-base">Photo/Video</p>
+            <input
+              ref="filepickerRef"
+              type="file"
+              accept="image/png, image/gif, image/jpeg"
+              class="hidden"
+              @change="addImageToPost($event)"
+            />
           </div>
           <div class="inputIcon">
             <EmojiHappyIcon class="h-7 text-yellow-300" />
             <p class="text-xs sm:text-sm xl:text-base">Feeling/Activity</p>
+          </div>
+          <div
+            class="
+              flex flex-col
+              filter
+              hover:brightness-110
+              transition
+              duration-150
+              transform
+              hover:scale-105
+              cursor-pointer
+            "
+            v-if="imageToPost"
+            @click="removeImage"
+          >
+            <img :src="imageToPost" class="h-10 object-contain" />
+            <p class="text-xs text-red-500 text-center">Remove</p>
           </div>
         </div>
       </div>
@@ -105,10 +129,12 @@
 import { ref, onMounted } from "vue";
 import { EmojiHappyIcon } from "@heroicons/vue/outline";
 import { CameraIcon, VideoCameraIcon } from "@heroicons/vue/solid";
-import db, { timestamp } from "../firebase";
+import db, { storage, timestamp } from "../firebase";
 export default {
   setup() {
     const user = ref(null);
+    const filepickerRef = ref(null);
+    const imageToPost = ref(null);
     const message = ref("");
     const stories = ref([
       {
@@ -155,10 +181,64 @@ export default {
 
       db.collection("posts")
         .add(data)
-        .then(() => (message.value = ""))
+        .then((doc) => {
+          if (imageToPost.value) {
+            const uploadTask = storage
+              .ref(`posts/${doc.id}`)
+              .putString(imageToPost.value, "data_url");
+
+            removeImage();
+
+            uploadTask.on(
+              "state_change",
+              null,
+              (error) => console.log(error),
+              () => {
+                // On a completed upload
+                storage
+                  .ref("posts")
+                  .child(doc.id)
+                  .getDownloadURL()
+                  .then((url) => {
+                    db.collection("posts").doc(doc.id).set(
+                      {
+                        postImage: url,
+                      },
+                      { merge: true }
+                    );
+                  });
+              }
+            );
+          }
+
+          message.value = "";
+        })
         .catch((error) => console.log(error));
     };
-    return { stories, user, message, onSubmit };
+
+    const addImageToPost = (e) => {
+      const reader = new FileReader();
+      if (e.target.files[0]) {
+        reader.readAsDataURL(e.target.files[0]);
+      }
+
+      reader.onload = (readerEvent) => {
+        imageToPost.value = readerEvent.target.result;
+      };
+    };
+
+    const removeImage = () => (imageToPost.value = null);
+
+    return {
+      stories,
+      user,
+      message,
+      onSubmit,
+      addImageToPost,
+      filepickerRef,
+      imageToPost,
+      removeImage,
+    };
   },
   components: {
     EmojiHappyIcon,
