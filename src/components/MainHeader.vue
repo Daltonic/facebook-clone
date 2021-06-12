@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="sticky z-58 bg-white flex items-center p-2 lg:px-5 shadow-md"
-  >
+  <div class="sticky z-58 bg-white flex items-center p-2 lg:px-5 shadow-md">
     <!-- Left -->
     <div class="flex items-center">
       <img
@@ -120,7 +118,7 @@
       <p class="whitespace-nowrap font-semibold pr-3 capitalize">
         {{ user?.displayName }}
       </p>
-      <ViewGridIcon class="icon" />
+      <PlusIcon class="icon" @click="moveTo" />
       <ChatIcon class="icon" />
       <BellIcon class="icon" />
       <ChevronDownIcon class="icon" />
@@ -135,7 +133,7 @@ import {
   ChevronDownIcon,
   HomeIcon,
   UserGroupIcon,
-  ViewGridIcon,
+  PlusIcon,
 } from "@heroicons/vue/solid";
 import {
   FlagIcon,
@@ -144,17 +142,22 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/vue/outline";
 import { ref, onMounted } from "vue";
-
+import { useRouter } from "vue-router";
 export default {
   name: "main-header",
   setup() {
     let user = ref(null);
+    const router = useRouter();
 
     onMounted(() => {
       user.value = JSON.parse(localStorage.getItem("user"));
     });
 
-    return { user };
+    const moveTo = () => {
+      router.push("/friends");
+    };
+
+    return { user, moveTo };
   },
   components: {
     BellIcon,
@@ -162,7 +165,7 @@ export default {
     ChevronDownIcon,
     HomeIcon,
     UserGroupIcon,
-    ViewGridIcon,
+    PlusIcon,
     FlagIcon,
     PlayIcon,
     SearchIcon,

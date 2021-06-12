@@ -1,18 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Wall from '@/views/Wall.vue'
-import Login from '@/views/Login.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Wall',
-    component: Wall,
+    component: () => import(/* webpackChunkName: "wall" */ '@/views/Wall.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/friends',
+    name: 'Friends',
+    component: () =>
+      import(/* webpackChunkName: "friends" */ '@/views/Friends.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () =>
+      import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
   },
 ]
 
