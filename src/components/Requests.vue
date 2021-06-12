@@ -17,7 +17,7 @@
         :key="index"
       >
         <router-link
-          :to="`/chat/${user?.uid}`"
+          :to="`/chats/user/${user?.uid}`"
           class="flex items-center space-x-4 p-2"
         >
           <img

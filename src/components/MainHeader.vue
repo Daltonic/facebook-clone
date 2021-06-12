@@ -8,6 +8,8 @@
         width="40"
         height="40"
         loading="lazy"
+        class="cursor-pointer"
+        @click="moveTo('/')"
       />
       <div class="flex ml-2 items-center rounded-full bg-gray-100 p-2">
         <SearchIcon class="h-6 text-gray-600" />
@@ -118,7 +120,7 @@
       <p class="whitespace-nowrap font-semibold pr-3 capitalize">
         {{ user?.displayName }}
       </p>
-      <PlusIcon class="icon" @click="moveTo" />
+      <PlusIcon class="icon" @click="moveTo('/friends')" />
       <ChatIcon class="icon" />
       <BellIcon class="icon" />
       <ChevronDownIcon class="icon" />
@@ -153,8 +155,8 @@ export default {
       user.value = JSON.parse(localStorage.getItem("user"));
     });
 
-    const moveTo = () => {
-      router.push("/friends");
+    const moveTo = (path) => {
+      router.push(path);
     };
 
     return { user, moveTo };
