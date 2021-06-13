@@ -63,7 +63,7 @@ export { firebaseConfig, cometChat }
 
 ```sh
     npm install
-    npm start
+    npm run serve
 ```
 
 Questions about running the demo? [Open an issue](https://github.com/Daltonic/facebook-clone/issues). We're here to help ✌️
