@@ -8,10 +8,17 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/friends',
-    name: 'Friends',
+    path: '/users',
+    name: 'users',
     component: () =>
-      import(/* webpackChunkName: "friends" */ '@/views/Friends.vue'),
+      import(/* webpackChunkName: "users" */ '@/views/Users.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/groups',
+    name: 'groups',
+    component: () =>
+      import(/* webpackChunkName: "groups" */ '@/views/Groups.vue'),
     meta: { requiresAuth: true },
   },
   {

@@ -42,6 +42,7 @@
             rounded-xl
             group
           "
+          @click="moveTo('/')"
         >
           <HomeIcon class="h-5 text-gray-500 group-hover:text-blue-500" />
         </div>
@@ -84,8 +85,9 @@
             rounded-xl
             group
           "
+          @click="moveTo('/users')"
         >
-          <ShoppingCartIcon
+          <UsersIcon
             class="h-5 text-gray-500 group-hover:text-blue-500"
           />
         </div>
@@ -100,6 +102,7 @@
             rounded-xl
             group
           "
+          @click="moveTo('/groups')"
         >
           <UserGroupIcon class="h-5 text-gray-500 group-hover:text-blue-500" />
         </div>
@@ -120,7 +123,7 @@
       <p class="whitespace-nowrap font-semibold pr-3 capitalize">
         {{ user?.displayName }}
       </p>
-      <PlusIcon class="icon" @click="moveTo('/friends')" />
+      <PlusIcon class="icon" />
       <ChatIcon class="icon" />
       <BellIcon class="icon" />
       <ChevronDownIcon class="icon" />
@@ -135,14 +138,13 @@ import {
   ChevronDownIcon,
   HomeIcon,
   UserGroupIcon,
-  PlusIcon,
-} from "@heroicons/vue/solid";
-import {
+  UsersIcon,
   FlagIcon,
   PlayIcon,
   SearchIcon,
-  ShoppingCartIcon,
-} from "@heroicons/vue/outline";
+  PlusIcon,
+} from "@heroicons/vue/solid";
+
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 export default {
@@ -171,7 +173,7 @@ export default {
     FlagIcon,
     PlayIcon,
     SearchIcon,
-    ShoppingCartIcon,
+    UsersIcon,
   },
 };
 </script>

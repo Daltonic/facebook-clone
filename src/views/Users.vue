@@ -1,10 +1,9 @@
 <template>
-  <div class="chats">
+  <div class="friends">
     <MainHeader />
     <main class="flex">
       <Sidebar />
-      <User v-if="type === 'user'" :uid="id" />
-      <Group v-else :guid="id" />
+      <FriendRequests />
       <Widget />
     </main>
   </div>
@@ -13,20 +12,14 @@
 <script>
 import MainHeader from "../components/MainHeader.vue";
 import Sidebar from "../components/Sidebar.vue";
-import User from "../components/User.vue";
-import Group from "../components/Group.vue";
+import FriendRequests from "../components/FriendRequests.vue";
 import Widget from "../components/Widget.vue";
 export default {
-  name: "chats",
-  props: ['id', 'type'],
-  setup() {
-    return {};
-  },
+  name: "friends",
   components: {
     MainHeader,
     Sidebar,
-    User,
-    Group,
+    FriendRequests,
     Widget,
   },
 };

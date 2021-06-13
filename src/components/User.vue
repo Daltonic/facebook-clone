@@ -2,7 +2,7 @@
   <div class="felx-grow flex-1 h-screen pb-44 pt-6">
     <div
       id="messages"
-      class="mx-auto max-w-md md:max-w-lg lg:max-w-2xl overflow-y-auto"
+      class="mx-auto max-w-md md:max-w-lg lg:max-w-2xl overflow-y-auto overflow-x-hidden"
     >
       <div v-for="(msg, index) in messages" :key="index" class="message">
         <Message
@@ -20,7 +20,6 @@
       <form @submit.prevent="sendMessage" class="relative flex">
         <input
           type="text"
-          placeholder="Write Something"
           class="
             w-full
             focus:outline-none
@@ -32,6 +31,7 @@
             rounded-full
             py-3
           "
+          :placeholder="`Message ${user?.name}`"
           v-model.trim="message"
         />
         <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
@@ -75,7 +75,7 @@ import { ref, onBeforeMount, onUpdated } from "vue";
 import { CometChat } from "@cometchat-pro/chat";
 import Message from "./Message.vue";
 export default {
-  props: ["type", "id"],
+  props: ["uid"],
   components: { Message },
   setup(props) {
     const user = ref(null);
@@ -83,9 +83,9 @@ export default {
     const message = ref("");
 
     onBeforeMount(() => {
-      getUser(props.id);
-      getMessages(props.id);
-      listenForMessage(props.id);
+      getUser(props.uid);
+      getMessages(props.uid);
+      listenForMessage(props.uid);
     });
 
     onUpdated(() => scrollToEnd());
@@ -102,12 +102,12 @@ export default {
       );
     };
 
-    const getMessages = (id) => {
+    const getMessages = (uid) => {
       const limit = 50;
 
       const messagesRequest = new CometChat.MessagesRequestBuilder()
         .setLimit(limit)
-        .setUID(id)
+        .setUID(uid)
         .build();
 
       messagesRequest
@@ -116,7 +116,6 @@ export default {
           messages.value = msgs.filter(
             (m) => m.type === "text" && typeof m.text != "undefined"
           );
-          console.log(messages.value)
           scrollToEnd();
         })
         .catch((error) =>
@@ -125,12 +124,9 @@ export default {
     };
 
     const sendMessage = () => {
-      const receiverID = props.id;
+      const receiverID = props.uid;
       const messageText = message.value;
-      const receiverType =
-        props.type === "user"
-          ? CometChat.RECEIVER_TYPE.USER
-          : CometChat.RECEIVER_TYPE.GROUP;
+      const receiverType = CometChat.RECEIVER_TYPE.USER;
       const textMessage = new CometChat.TextMessage(
         receiverID,
         messageText,
@@ -148,8 +144,8 @@ export default {
         );
     };
 
-    const getUser = (id) => {
-      CometChat.getUser(id)
+    const getUser = (uid) => {
+      CometChat.getUser(uid)
         .then((u) => (user.value = u))
         .catch((error) => {
           console.log("User details fetching failed with error:", error);

@@ -3,7 +3,7 @@
     <MainHeader />
     <main class="flex">
       <Sidebar />
-      <Requests />
+      <GroupRequests />
       <Widget />
     </main>
   </div>
@@ -12,14 +12,14 @@
 <script>
 import MainHeader from "../components/MainHeader.vue";
 import Sidebar from "../components/Sidebar.vue";
-import Requests from "../components/Requests.vue";
+import GroupRequests from "../components/GroupRequests.vue";
 import Widget from "../components/Widget.vue";
 export default {
   name: "friends",
   components: {
     MainHeader,
     Sidebar,
-    Requests,
+    GroupRequests,
     Widget,
   },
 };
