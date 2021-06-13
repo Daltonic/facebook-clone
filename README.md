@@ -75,5 +75,5 @@ Questions about running the demo? [Open an issue](https://github.com/Daltonic/fa
 - 📚 [Documentation](https://prodocs.cometchat.com)
 - 👾 [GitHub](https://www.github.com/cometchat-pro)
 - 🔥 [Firebase](https://console.firebase.google.com)
-- 🔷 [React](https://reactjs.org/)
+- 🔷 [VueJs](https://vuejs.org/)
 - ✨ [Live Demo](https://facebook-clone-dff86.web.app/)
