@@ -15,20 +15,6 @@
       >
         {{ !loading ? "Sign In With Google" : "Signing..." }}
       </button>
-
-      <!-- <button
-        class="
-          my-5
-          p-3
-          rounded-full
-          text-white text-center
-          cursor-pointer
-          focus:outline-none
-        "
-        @click="signInWithFacebook"
-      >
-        Sign In With Google
-      </button> -->
     </div>
   </div>
 </template>
