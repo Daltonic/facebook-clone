@@ -48,14 +48,14 @@ const firebaseConfig = {
   measurementId: 'xxx-xxx-xxx',
 }
 
-const cometChat = {
+const cometChatConfig = {
   APP_ID: 'xxx-xxx-xxx',
   AUTH_KEY: 'xxx-xxx-xxx-xxx-xxx-xxx-xxx-xxx',
   REST_KEY: 'xxx-xxx-xxx-xxx-xxx-xxx-xxx-xxx',
   APP_REGION: 'xx',
 }
 
-export { firebaseConfig, cometChat }
+export { firebaseConfig, cometChatConfig }
 ```
 
 11. Make sure to exclude **app.config.js** in your gitIgnore file from being exposed online.

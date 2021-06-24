@@ -53,7 +53,7 @@
 <script>
 import { ref, onMounted } from "vue";
 import { CometChat } from "@cometchat-pro/chat";
-import { cometChat } from "../app.config";
+import { cometChatConfig } from "../app.config";
 export default {
   setup() {
     const user = ref(null);
@@ -80,8 +80,8 @@ export default {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          appId: cometChat.APP_ID,
-          apiKey: cometChat.REST_KEY,
+          appId: cometChatConfig.APP_ID,
+          apiKey: cometChatConfig.REST_KEY,
         },
         body: JSON.stringify({ accepted: [uid] }),
       };

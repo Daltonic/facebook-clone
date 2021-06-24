@@ -22,7 +22,7 @@
 <script>
 import { auth, provider } from "../firebase";
 import { CometChat } from "@cometchat-pro/chat";
-import { cometChat } from "../app.config";
+import { cometChatConfig } from "../app.config";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 export default {
@@ -44,7 +44,7 @@ export default {
     };
 
     const loginCometChat = (data) => {
-      const authKey = cometChat.AUTH_KEY;
+      const authKey = cometChatConfig.AUTH_KEY;
 
       CometChat.login(data.uid, authKey)
         .then((u) => {
@@ -65,7 +65,7 @@ export default {
     };
 
     const signUpWithCometChat = (data) => {
-      const authKey = cometChat.AUTH_KEY;
+      const authKey = cometChatConfig.AUTH_KEY;
       const user = new CometChat.User(data.uid);
 
       user.setName(data.displayName);

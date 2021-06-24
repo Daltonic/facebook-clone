@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './index.css'
 import { CometChat } from '@cometchat-pro/chat'
-import { cometChat } from './app.config'
+import { cometChatConfig } from './app.config'
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
@@ -17,8 +17,8 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-const appID = cometChat.APP_ID
-const region = cometChat.APP_REGION
+const appID = cometChatConfig.APP_ID
+const region = cometChatConfig.APP_REGION
 const appSetting = new CometChat.AppSettingsBuilder()
   .subscribePresenceForAllUsers()
   .setRegion(region)
