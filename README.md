@@ -25,7 +25,7 @@ This demo uses:
 To run the demo follow these steps:
 
 1. [Head to CometChat Pro and create an account](https://app.cometchat.com/signup)
-2. From the [dashboard](https://app.cometchat.com/apps), add a new app called **"slack-clone"**
+2. From the [dashboard](https://app.cometchat.com/apps), add a new app called **"facebook-clone"**
 3. Select this newly added app from the list.
 4. From the Quick Start copy the **APP_ID, APP_REGION and AUTH_KEY**. These will be used later.
 5. Also copy the **REST_API_KEY** from the API & Auth Key tab.
